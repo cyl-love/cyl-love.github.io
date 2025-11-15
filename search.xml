@@ -176,20 +176,9 @@
     
     
     <entry>
-      <title>Who am I ?</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>friend</title>
-      <link href="/link/index.html"/>
-      <url>/link/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -209,11 +198,22 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>friend</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Who am I ?</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<div class="about-container">  <!--- 引言部分 -->  <blockquote class="about-quote">    <p>你好！很高兴能在这里与你相遇。再努力一点，你是不是就会多看我一眼</p>  </blockquote>  <!--- 基本信息 -->  <div class="note note-primary">    <h2>love me</h2>    <ul>      <li><strong>坐标：</strong>你的心里</li>      <li><strong>身份：</strong>24级在读大学生</li>      <li><strong>id：</strong>cyl_love&陈羽琳</li>      <li><strong>邮箱：</strong>3537049752@qq.com</li>      <li>迷路在web中，欢迎扩列交流</li>            </ul>  </div></div><style>/* 整体容器 */.about-container {  max-width: 800px;  margin: 2rem auto;  padding: 0 1rem;}/* 引言样式 */.about-quote {  border-left: 4px solid #6f42c1;  padding-left: 1rem;  margin: 2rem 0;  font-style: italic;  color: #666;}/* 通用便签样式 */.note {  margin: 2.5rem 0;  padding: 1.5rem;  border-left: 4px solid;  border-radius: 4px;  background: #f8f9fa;}.note-primary { border-left-color: #6f42c1; background: #f5f0fa; }.note-info { border-left-color: #428bca; background: #eef7fa; }.note-success { border-left-color: #5cb85c; background: #eff8f0; }.note-warning { border-left-color: #f0ad4e; background: #fcf8f2; }.note h2 {  margin-top: 0;  color: #333;}.note ul {  padding-left: 1.2rem;}.note li {  margin-bottom: 0.5rem;}/* 社交链接样式 */.social-links a {  display: inline-block;  margin-right: 1rem;  margin-bottom: 0.5rem;  padding: 0.4rem 0.8rem;  background: #6f42c1;  color: white !important;  text-decoration: none;  border-radius: 4px;  transition: background 0.3s;}.social-links a:hover {  background: #5a32a3;  text-decoration: none;}</style>]]></content>
       
     </entry>
     
