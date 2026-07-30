@@ -1,31 +1,8 @@
 .DS_Store
 Thumbs.db
-db.json
 *.log
 node_modules/
 public/
 resources/_gen/
 .hugo_build.lock
 .tools/
-.deploy*/
-_multiconfig.yml
-
-# Legacy Hexo project kept locally as a migration backup.
-db.json
-source/
-scaffolds/
-themes/
-_config.yml
-_config.butterfly.yml
-_config.landscape.yml
-
-# A duplicated legacy Hexo checkout exists under .github; only workflows and
-# repository configuration belong in the Hugo source repository.
-.github/.github/
-.github/.gitignore
-.github/source/
-.github/themes/
-.github/package.json
-.github/package-lock.json
-.github/db.json
-.github/_config*.yml
