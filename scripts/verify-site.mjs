@@ -27,6 +27,32 @@ async function walkMarkdown(directory) {
   return files.sort()
 }
 
+async function auditSectionIndexes(rootDirectory, contentRoot) {
+  const errors = []
+
+  async function audit(directory) {
+    const indexPath = path.join(directory, '_index.md')
+    const sourceLabel = path.relative(rootDirectory, indexPath).replaceAll('\\', '/')
+    if (!(await exists(indexPath))) {
+      errors.push(`${sourceLabel}: missing section index`)
+    } else {
+      try {
+        const parsed = parseFrontMatter(await readFile(indexPath, 'utf8'))
+        if (!parsed.data.title) errors.push(`${sourceLabel}: missing title`)
+      } catch (error) {
+        errors.push(`${sourceLabel}: ${error.message}`)
+      }
+    }
+
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      if (entry.isDirectory()) await audit(path.join(directory, entry.name))
+    }
+  }
+
+  if (await exists(contentRoot)) await audit(contentRoot)
+  return errors
+}
+
 function cleanLocalUrl(value) {
   const withoutSuffix = value.split(/[?#]/, 1)[0]
   try {
@@ -89,7 +115,7 @@ function publicPathForRoute(rootDirectory, route) {
 export async function verifySite(rootDirectory = process.cwd()) {
   const contentRoot = path.join(rootDirectory, 'content', 'blog')
   const contentFiles = await walkMarkdown(contentRoot)
-  const errors = []
+  const errors = await auditSectionIndexes(rootDirectory, contentRoot)
   const allRoutes = new Map()
   const publishedRoutes = new Map()
   let imageReferences = 0
@@ -114,6 +140,11 @@ export async function verifySite(rootDirectory = process.cwd()) {
     if (!data.title) errors.push(`${sourceLabel}: missing title`)
     if (!data.date) errors.push(`${sourceLabel}: missing date`)
     if (!data.url) errors.push(`${sourceLabel}: missing legacy url`)
+    if (!data.abbrlink) {
+      errors.push(`${sourceLabel}: missing abbrlink`)
+    } else if (data.url && data.url !== `/posts/${data.abbrlink}.html`) {
+      errors.push(`${sourceLabel}: abbrlink ${data.abbrlink} does not match url ${data.url}`)
+    }
 
     if (data.url) {
       const prior = allRoutes.get(data.url)

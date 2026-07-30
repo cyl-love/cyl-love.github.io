@@ -5,6 +5,7 @@
   "scripts": {
     "migrate": "node scripts/migrate-hexo-to-hugo.mjs",
     "new": "node scripts/new-post.mjs",
+    "section": "node scripts/new-section.mjs",
     "test": "node --test scripts/*.test.mjs",
     "build": "node scripts/run-hugo.mjs --minify",
     "serve": "node scripts/run-hugo.mjs server --disableFastRender",

@@ -66,3 +66,78 @@ test('rejects a missing article title', async () => {
     /文章标题不能为空/
   )
 })
+
+test('creates an article in a nested section and creates missing indexes', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'cyl-new-post-'))
+  try {
+    const result = await createPost({
+      root,
+      title: '新生赛复现',
+      category: 'ctf/新生赛',
+      tags: ['ctf'],
+      now: new Date('2026-07-30T12:34:56+08:00'),
+    })
+
+    assert.equal(
+      path.relative(root, result.filePath).replaceAll('\\', '/'),
+      'content/blog/ctf/新生赛/新生赛复现.md'
+    )
+    const markdown = await readFile(result.filePath, 'utf8')
+    assert.match(markdown, /categories: \["新生赛"\]/)
+    assert.match(
+      await readFile(path.join(root, 'content', 'blog', 'ctf', '_index.md'), 'utf8'),
+      /title: "ctf"/
+    )
+    assert.match(
+      await readFile(path.join(root, 'content', 'blog', 'ctf', '新生赛', '_index.md'), 'utf8'),
+      /title: "新生赛"/
+    )
+  } finally {
+    await rm(root, { recursive: true, force: true })
+  }
+})
+
+test('avoids Windows reserved device names in article filenames', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'cyl-new-post-'))
+  try {
+    for (const reservedName of ['CON', 'CONIN$', 'CONOUT$']) {
+      const result = await createPost({
+        root,
+        title: reservedName,
+        category: '笔记',
+        now: new Date('2026-07-30T12:34:56+08:00'),
+      })
+
+      assert.equal(path.basename(result.filePath), `${reservedName}-post.md`)
+    }
+  } finally {
+    await rm(root, { recursive: true, force: true })
+  }
+})
+
+test('uses an existing section index title as the canonical category', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'cyl-new-post-'))
+  try {
+    const directory = path.join(root, 'content', 'blog', '代码审计', 'php')
+    await mkdir(directory, { recursive: true })
+    await writeFile(
+      path.join(directory, '_index.md'),
+      '---\ntitle: "PHP"\n---\n',
+      'utf8'
+    )
+
+    const result = await createPost({
+      root,
+      title: 'CMS 审计',
+      category: '代码审计/php',
+      now: new Date('2026-07-30T12:34:56+08:00'),
+    })
+
+    assert.match(
+      await readFile(result.filePath, 'utf8'),
+      /categories: \["PHP"\]/
+    )
+  } finally {
+    await rm(root, { recursive: true, force: true })
+  }
+})

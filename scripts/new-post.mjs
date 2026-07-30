@@ -1,8 +1,9 @@
-import { mkdir, open, readFile, readdir } from 'node:fs/promises'
+import { open, readFile, readdir } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { serializeFrontMatter } from './lib/front-matter.mjs'
+import { ensureSection, isWindowsReservedName } from './lib/content-path.mjs'
 
 const DATE_FORMATTER = new Intl.DateTimeFormat('en-CA', {
   timeZone: 'Asia/Shanghai',
@@ -39,7 +40,12 @@ function safePathSegment(value, fallback) {
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
     .replace(/[. -]+$/g, '')
-  return result || fallback
+  if (!result) return fallback
+  if (!isWindowsReservedName(result)) return result
+
+  const extensionStart = result.indexOf('.')
+  if (extensionStart === -1) return `${result}-${fallback}`
+  return `${result.slice(0, extensionStart)}-${fallback}${result.slice(extensionStart)}`
 }
 
 async function markdownFiles(directory) {
@@ -101,8 +107,8 @@ export async function createPost({
   let id = BigInt(timestampId(now))
   while (ids.has(String(id))) id += 1n
 
-  const directory = path.join(contentRoot, safePathSegment(normalizedCategory, '未分类'))
-  await mkdir(directory, { recursive: true })
+  const section = await ensureSection({ root, sectionPath: normalizedCategory })
+  const directory = section.directory
   const { filePath, handle } = await availableFilePath(directory, normalizedTitle)
   const identifier = String(id)
   const markdown = serializeFrontMatter(
@@ -110,7 +116,7 @@ export async function createPost({
       title: normalizedTitle,
       date: formatDate(now),
       tags: normalizedTags,
-      categories: [normalizedCategory],
+      categories: [section.leafTitle],
       url: `/posts/${identifier}.html`,
       abbrlink: identifier,
       draft: true,
