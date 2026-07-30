@@ -1,8 +1,8 @@
 ---
-title: "做梦都想进vn之base2024ctf"
+title: "那些梦之base2024ctf"
 date: "2025-12-07 16:13:09"
 tags: ["ctf"]
-categories: ["做梦都想进vn"]
+categories: ["那些梦"]
 url: "/posts/26285.html"
 abbrlink: "26285"
 ---

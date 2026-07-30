@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { deploy } from './deploy.mjs'
+import { deploy, runCommand } from './deploy.mjs'
 
 function fakeRunner(responses = new Map()) {
   const calls = []
@@ -14,6 +14,13 @@ function fakeRunner(responses = new Map()) {
   }
   return { calls, run }
 }
+
+test('runCommand launches npm through the real Windows process boundary', async () => {
+  const result = await runCommand('npm', ['--version'])
+
+  assert.equal(result.code, 0)
+  assert.match(result.stdout.trim(), /^\d+\.\d+\.\d+/)
+})
 
 test('verifies, commits and pushes the main branch', async () => {
   const { calls, run } = fakeRunner(new Map([

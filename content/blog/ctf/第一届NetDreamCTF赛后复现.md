@@ -2,7 +2,7 @@
 title: "第一届NetDreamCTF赛后复现"
 date: "2025-08-17 13:59:14"
 tags: ["ctf"]
-categories: ["未分类"]
+categories: ["ctf"]
 url: "/posts/38132.html"
 abbrlink: "38132"
 ---

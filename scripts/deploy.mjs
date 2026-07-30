@@ -1,14 +1,34 @@
 import { spawn } from 'node:child_process'
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-function executable(command) {
-  return process.platform === 'win32' && command === 'npm' ? 'npm.cmd' : command
+function invocation(command, args) {
+  if (process.platform !== 'win32' || command !== 'npm') return { command, args }
+
+  const npmCli = process.env.npm_execpath || path.join(
+    path.dirname(process.execPath),
+    'node_modules',
+    'npm',
+    'bin',
+    'npm-cli.js'
+  )
+  if (!existsSync(npmCli)) throw new Error(`找不到 npm CLI：${npmCli}`)
+
+  return { command: process.execPath, args: [npmCli, ...args] }
 }
 
 export function runCommand(command, args, { inherit = false } = {}) {
   return new Promise((resolve, reject) => {
-    const child = spawn(executable(command), args, {
+    let target
+    try {
+      target = invocation(command, args)
+    } catch (error) {
+      reject(error)
+      return
+    }
+
+    const child = spawn(target.command, target.args, {
       cwd: process.cwd(),
       stdio: inherit ? 'inherit' : ['ignore', 'pipe', 'pipe'],
       windowsHide: true,
