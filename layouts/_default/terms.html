@@ -1,0 +1,16 @@
+{{ define "main" }}
+  <div class="site-grid">
+    {{ partial "sidebar-left.html" . }}
+    <main class="content-panel" id="main-content">
+      <header class="page-intro compact"><span class="eyebrow">INDEX</span><h1>{{ .Title }}</h1></header>
+      <div class="term-list">
+        {{ range .Data.Terms.Alphabetical }}
+          <a href="{{ .Page.RelPermalink }}"><span>{{ .Page.LinkTitle }}</span><strong>{{ .Count }}</strong></a>
+        {{ end }}
+      </div>
+      {{ partial "footer.html" . }}
+    </main>
+    {{ partial "sidebar-right.html" . }}
+  </div>
+{{ end }}
+

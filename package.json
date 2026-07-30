@@ -1,0 +1,17 @@
+{
+  "name": "cyl-hugo-knowledge-base",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "migrate": "node scripts/migrate-hexo-to-hugo.mjs",
+    "new": "node scripts/new-post.mjs",
+    "test": "node --test scripts/*.test.mjs",
+    "build": "node scripts/run-hugo.mjs --minify",
+    "serve": "node scripts/run-hugo.mjs server --disableFastRender",
+    "verify": "npm test && npm run build && node scripts/verify-site.mjs",
+    "deploy": "node scripts/deploy.mjs"
+  },
+  "dependencies": {
+    "lucide": "1.28.0"
+  }
+}

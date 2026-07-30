@@ -1,0 +1,28 @@
+{{ define "main" }}
+  <div class="site-grid">
+    {{ partial "sidebar-left.html" . }}
+    <main class="content-panel" id="main-content">
+      <header class="page-intro compact">
+        <span class="eyebrow">COLLECTION</span>
+        <h1>{{ .Title }}</h1>
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      </header>
+      <div class="list-view">
+        {{ range .RegularPagesRecursive.ByDate.Reverse }}
+          <article class="list-row">
+            <div>
+              <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+              <p>{{ .Summary | plainify | truncate 120 }}</p>
+            </div>
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+          </article>
+        {{ else }}
+          <p class="empty-state">这里暂时没有文章。</p>
+        {{ end }}
+      </div>
+      {{ partial "footer.html" . }}
+    </main>
+    {{ partial "sidebar-right.html" . }}
+  </div>
+{{ end }}
+

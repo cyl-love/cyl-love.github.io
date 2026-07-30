@@ -1,0 +1,31 @@
+{{ $page := .Page }}
+{{ $current := .Current }}
+{{ $showDate := .ShowDate | default false }}
+{{ $collapsed := .Collapsed | default false }}
+<ul class="tree-list">
+  {{ range $page.Sections.ByTitle }}
+    {{ $sectionId := printf "tree-%s" (.RelPermalink | md5) }}
+    <li class="tree-section">
+      <button class="tree-toggle" type="button" aria-expanded="{{ if $collapsed }}false{{ else }}true{{ end }}" aria-controls="{{ $sectionId }}" data-tree-toggle>
+        <span class="tree-caret" aria-hidden="true"></span>
+        <strong>{{ .Title }}</strong>
+      </button>
+      <div class="tree-children" id="{{ $sectionId }}" {{ if $collapsed }}hidden{{ end }}>
+        {{ partial "tree.html" (dict "Page" . "Current" $current "ShowDate" $showDate "Collapsed" $collapsed) }}
+      </div>
+    </li>
+  {{ end }}
+  {{ range $page.RegularPages.ByDate.Reverse }}
+    {{ $active := and $current (eq .RelPermalink $current.RelPermalink) }}
+    <li class="tree-article{{ if $active }} is-active{{ end }}">
+      <a class="tree-article-link" href="{{ .RelPermalink }}" data-summary="{{ .Summary | plainify | htmlEscape }}"{{ if $active }} aria-current="page"{{ end }}>
+        <span class="tree-article-title">{{ .Title }}</span>
+        {{ if $showDate }}
+          <span class="tree-leader" aria-hidden="true"></span>
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+        {{ end }}
+      </a>
+    </li>
+  {{ end }}
+</ul>
+

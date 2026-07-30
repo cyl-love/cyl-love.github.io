@@ -1,0 +1,26 @@
+{{ define "main" }}
+  <div class="site-grid">
+    {{ partial "sidebar-left.html" . }}
+    <main class="content-panel" id="main-content">
+      <header class="page-intro compact"><span class="eyebrow">FRIENDS</span><h1>{{ .Title }}</h1><p>那些人，那些事。</p></header>
+      <div class="friend-groups">
+        {{ range hugo.Data.friends }}
+          <section class="friend-group">
+            <h2>{{ .class_name }}</h2><p>{{ .class_desc }}</p>
+            <div class="friend-list">
+              {{ range .link_list }}
+                <a class="friend-item" href="{{ .link }}" rel="noopener noreferrer" target="_blank">
+                  <img src="{{ .avatar }}" alt="" loading="lazy" width="48" height="48" />
+                  <span><strong>{{ .name }}</strong><small>{{ .descr }}</small></span>
+                  {{ partial "icon.html" "arrow-up-right" }}
+                </a>
+              {{ end }}
+            </div>
+          </section>
+        {{ end }}
+      </div>
+      {{ partial "footer.html" . }}
+    </main>
+    {{ partial "sidebar-right.html" . }}
+  </div>
+{{ end }}

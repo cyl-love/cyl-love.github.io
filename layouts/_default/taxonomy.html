@@ -1,0 +1,16 @@
+{{ define "main" }}
+  <div class="site-grid">
+    {{ partial "sidebar-left.html" . }}
+    <main class="content-panel" id="main-content">
+      <header class="page-intro compact"><span class="eyebrow">TOPIC</span><h1>{{ .Title }}</h1></header>
+      <div class="list-view">
+        {{ range .Pages.ByDate.Reverse }}
+          <article class="list-row"><div><h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2><p>{{ .Summary | plainify | truncate 120 }}</p></div><time>{{ .Date.Format "2006-01-02" }}</time></article>
+        {{ end }}
+      </div>
+      {{ partial "footer.html" . }}
+    </main>
+    {{ partial "sidebar-right.html" . }}
+  </div>
+{{ end }}
+

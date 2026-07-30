@@ -1,0 +1,17 @@
+<aside class="sidebar sidebar-left" aria-label="文档导航">
+  <button class="sidebar-search" type="button" data-search-open>
+    {{ partial "icon.html" "search" }}
+    <span>搜索文章</span>
+    <kbd>Ctrl K</kbd>
+  </button>
+  <div class="sidebar-heading">
+    <span class="eyebrow">LIBRARY</span>
+    <h2>文档</h2>
+  </div>
+  <nav class="tree sidebar-tree" aria-label="文章目录树">
+    {{ with site.GetPage "/blog" }}
+      {{ partial "tree.html" (dict "Page" . "Current" $ "ShowDate" false "Collapsed" true) }}
+    {{ end }}
+  </nav>
+</aside>
+

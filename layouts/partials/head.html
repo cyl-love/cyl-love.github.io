@@ -1,0 +1,24 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#f7f8f8" />
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}" />
+<meta name="color-scheme" content="light dark" />
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<link rel="canonical" href="{{ .Permalink }}" />
+<link rel="icon" href="{{ "avatar.jpg" | relURL }}" type="image/jpeg" />
+<script>
+  (() => {
+    try {
+      const saved = localStorage.getItem('cyl-theme')
+      const dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.dataset.theme = saved === 'light' || saved === 'dark'
+        ? saved
+        : dark ? 'dark' : 'light'
+    } catch (_) {
+      document.documentElement.dataset.theme = 'light'
+    }
+  })()
+</script>
+{{ $style := resources.Get "css/main.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" />
+

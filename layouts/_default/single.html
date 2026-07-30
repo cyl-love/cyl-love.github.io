@@ -1,0 +1,25 @@
+{{ define "main" }}
+  <div class="site-grid">
+    {{ partial "sidebar-left.html" . }}
+    <main class="content-panel" id="main-content">
+      <article class="article">
+        <header class="article-header">
+          <div class="article-kicker">
+            {{ with .Params.categories }}<span>{{ index . 0 }}</span>{{ else }}<span>{{ .Section }}</span>{{ end }}
+          </div>
+          <h1>{{ .Title }}</h1>
+          {{ if .Date }}
+            <div class="article-meta">
+              <span>{{ partial "icon.html" "calendar-days" }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></span>
+              {{ with .ReadingTime }}<span>{{ partial "icon.html" "clock-3" }}约 {{ . }} 分钟</span>{{ end }}
+              {{ with .Params.tags }}<span>{{ partial "icon.html" "tags" }}{{ delimit . " · " }}</span>{{ end }}
+            </div>
+          {{ end }}
+        </header>
+        <div class="markdown-body">{{ .Content }}</div>
+      </article>
+      {{ partial "footer.html" . }}
+    </main>
+    {{ partial "sidebar-right.html" . }}
+  </div>
+{{ end }}

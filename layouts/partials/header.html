@@ -1,0 +1,29 @@
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-group">
+      <a class="avatar-link" href="{{ site.Home.RelPermalink }}" aria-label="返回首页">
+        <img class="site-avatar" src="{{ site.Params.avatar | relURL }}" alt="" width="36" height="36" />
+      </a>
+      <a class="site-title" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
+      <a class="icon-button header-home" href="{{ site.Home.RelPermalink }}" aria-label="首页" title="首页">
+        {{ partial "icon.html" "home" }}
+      </a>
+    </div>
+
+    <nav class="header-actions" aria-label="全局导航">
+      <a class="header-text-link" href="{{ "link/" | relURL }}">友链</a>
+      <a class="header-text-link" href="{{ "about/" | relURL }}">关于</a>
+      <button class="icon-button" type="button" data-search-open aria-label="搜索" title="搜索">
+        {{ partial "icon.html" "search" }}
+      </button>
+      <button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="切换深浅主题" title="切换深浅主题" data-theme-toggle>
+        <span class="theme-track">
+          {{ partial "icon.html" "sun" }}
+          {{ partial "icon.html" "moon" }}
+          <span class="theme-thumb"></span>
+        </span>
+      </button>
+    </nav>
+  </div>
+</header>
+

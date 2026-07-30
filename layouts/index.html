@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <div class="site-grid">
+    {{ partial "sidebar-left.html" . }}
+    <main class="content-panel home-content" id="main-content">
+      <header class="page-intro">
+        <span class="eyebrow">CYL / SECURITY NOTES</span>
+        <h1>{{ site.Title }}</h1>
+        <p>{{ site.Params.description }}</p>
+      </header>
+      <section class="homepage-tree tree" aria-label="全部文章">
+        {{ with site.GetPage "/blog" }}
+          {{ partial "tree.html" (dict "Page" . "Current" $ "ShowDate" true "Collapsed" false) }}
+        {{ end }}
+      </section>
+      {{ partial "footer.html" . }}
+    </main>
+    {{ partial "sidebar-right.html" . }}
+  </div>
+{{ end }}
+

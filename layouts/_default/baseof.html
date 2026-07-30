@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body data-page-kind="{{ .Kind }}" data-section="{{ .Section }}">
+    <a class="skip-link" href="#main-content">跳到正文</a>
+    {{ partial "header.html" . }}
+
+    {{ block "main" . }}{{ end }}
+
+    <dialog class="search-dialog" id="search-dialog" aria-labelledby="search-title">
+      <form class="search-panel" method="dialog">
+        <div class="search-heading">
+          <div>
+            <span class="eyebrow">SEARCH</span>
+            <h2 id="search-title">搜索知识库</h2>
+          </div>
+          <button class="icon-button" type="button" data-search-close aria-label="关闭搜索" title="关闭搜索">
+            {{ partial "icon.html" "x" }}
+          </button>
+        </div>
+        <label class="search-field" for="search-input">
+          {{ partial "icon.html" "search" }}
+          <input id="search-input" type="search" autocomplete="off" placeholder="输入标题或正文关键词" />
+        </label>
+        <p class="search-status" id="search-status" aria-live="polite">输入关键词开始搜索</p>
+        <div class="search-results" id="search-results" role="listbox"></div>
+        <div class="search-help" aria-hidden="true">
+          <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+          <span><kbd>Enter</kbd> 打开</span>
+          <span><kbd>Esc</kbd> 关闭</span>
+        </div>
+      </form>
+    </dialog>
+
+    {{ $script := resources.Get "js/main.js" | js.Build (dict "targetPath" "js/main.js" "format" "esm" "minify" hugo.IsProduction) }}
+    <script type="module" src="{{ $script.RelPermalink }}"></script>
+  </body>
+</html>
+

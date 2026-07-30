@@ -1,0 +1,15 @@
+<aside class="sidebar sidebar-right" aria-label="页内目录">
+  {{ if and (eq .Section "blog") (ne .TableOfContents "<nav id=\"TableOfContents\"></nav>") }}
+    <div class="toc-heading">
+      <span class="eyebrow">ON THIS PAGE</span>
+      <h2>本页目录</h2>
+    </div>
+    <div class="toc" data-toc>{{ .TableOfContents }}</div>
+  {{ else }}
+    <div class="sidebar-mark">
+      <span>CYL</span>
+      <small>KNOWLEDGE BASE</small>
+    </div>
+  {{ end }}
+</aside>
+

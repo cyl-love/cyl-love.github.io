@@ -1,0 +1,12 @@
+{{ define "main" }}
+  <main class="error-page" id="main-content">
+    <span class="error-code">404</span>
+    <h1>这篇笔记不在这里</h1>
+    <p>链接可能已经移动，试试从知识树或搜索中重新找到它。</p>
+    <div class="error-actions">
+      <a class="command-link" href="{{ site.Home.RelPermalink }}">{{ partial "icon.html" "arrow-left" }}返回首页</a>
+      <button class="command-link" type="button" data-search-open>{{ partial "icon.html" "search" }}搜索文章</button>
+    </div>
+  </main>
+{{ end }}
+

@@ -1,0 +1,14 @@
+{{- $items := slice -}}
+{{- range where site.RegularPages "Section" "blog" -}}
+  {{- $items = $items | append (dict
+    "title" .Title
+    "summary" (.Summary | plainify)
+    "content" (.Plain | plainify)
+    "link" .RelPermalink
+    "date" (.Date.Format "2006-01-02")
+    "categories" (.Params.categories | default (slice))
+    "tags" (.Params.tags | default (slice))
+  ) -}}
+{{- end -}}
+{{- $items | jsonify -}}
+
